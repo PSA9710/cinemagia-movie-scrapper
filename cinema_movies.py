@@ -136,7 +136,8 @@ def get_movies(day):
 
 def print_start_message(day):
     days = {'luni': 'Monday', 'marti': 'Tuesday', 'miercuri': 'Wednesday',
-            'joi': 'Thursday', 'vineri': 'Friday', 'sambata': 'Saturday', 'duminica': 'Sunday'}
+            'joi': 'Thursday', 'vineri': 'Friday', 'sambata': 'Saturday',
+            'duminica': 'Sunday'}
     message = '\nShowing all movies that run'
     if day is '':
         message += ' today:\n'
@@ -154,13 +155,19 @@ def display_movies(day):
 
 
 def main():
+    day_choices=['luni', 'marti', 'miercuri', 'joi',
+                                 'vineri', 'sambata', 'duminica']
     parser = argparse.ArgumentParser(description='Get more detailed')
-    parser.add_argument('day', type=str.lower,
-                        default='', choices=['azi',
-                                             'luni', 'marti', 'miercuri', 'joi',
-                                             'vineri', 'sambata', 'duminica'])
+
+    parser.add_argument('-d', '--day',
+                        help='Display results for a specific day.'+
+                        'If no day specified, will show results for today',
+                        type=str.lower, metavar='',
+                        default='',action='store',
+                        choices=day_choices
+                        )
     args = parser.parse_args()
-    display_movies(args.day if args.day != 'azi' else '')
+    display_movies(args.day)
 
 
 if __name__ == "__main__":
